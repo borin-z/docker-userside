@@ -1,0 +1,68 @@
+version: '2'
+services:
+ fpm:
+  image: borin/userside:php5.6-fpm
+  environment:
+   - TZ=Asia/Yekaterinburg
+  volumes:
+   - web:/opt/userside:rw
+
+ nginx:
+  image: borin/userside:nginx-latest
+  environment:
+   - TZ=Asia/Yekaterinburg
+  ports:
+   - 80:80
+  volumes:
+   - web:/opt/userside:rw
+
+ mysql:
+  image: mysql:5.7
+  volumes:
+   - mysql:/var/lib/mysql
+  environment:
+   - MYSQL_DATABASE=userside
+   - MYSQL_USER=userside
+   - MYSQL_PASSWORD=userside
+   - MYSQL_ROOT_PASSWORD=root_pwd
+   - TZ=Asia/Yekaterinburg
+  command:
+   --character-set-server=utf8
+   --collation-server=utf8_general_ci
+   --default-storage-engine=innodb
+   --innodb_file_per_table
+   --innodb_buffer_pool_size=256M
+   --join_buffer_size=8M
+   --tmp_table_size=64M
+   --max_heap_table_size=64M
+   --query_cache_limit=64M
+   --max_allowed_packet=10M
+
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  environment:
+   - PMA_HOST=mysql
+   - TZ=Asia/Yekaterinburg
+  ports:
+    - 8080:80
+
+ postgres:
+  image: borin/userside:postgres-10
+  volumes:
+   - postgres:/var/lib/postgresql/data
+  environment:
+   - POSTGRES_USER=userside
+   - POSTGRES_PASSWORD=userside
+   - TZ=Asia/Yekaterinburg
+
+ adminer:
+  image: adminer
+  environment:
+   - ADMINER_DESIGN=pappu687
+  ports:
+   - 8081:8080
+
+volumes:
+ web:
+ mysql:
+ postgres:
