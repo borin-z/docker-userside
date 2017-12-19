@@ -20,5 +20,9 @@ mkdir -p /opt/userside_modules/usm_peleng/log
 Download peleng module from official site, copy file **usm_peleng.pl** and **usm_peleng.conf** in **/opt/userside_modules/usm_peleng**. Change **usm_peleng.conf**. Do not forget to specify the path to the folder with logs. The correct path to the folder with logs will be **/opt/usm_peleng/log**
 To run the module, use the command:
 ~~~sh
-docker run --rm -it -v /opt/userside_modules/usm_peleng:/opt/usm_peleng borin/userside:usm_peleng
+docker run --rm -v /opt/userside_modules/usm_peleng:/opt/usm_peleng borin/userside:usm_peleng
+~~~
+Run the module with timezone:
+~~~sh
+docker run --rm -e TZ=Asia/Yekaterinburg -v /opt/userside_modules/usm_peleng:/opt/usm_peleng borin/userside:usm_peleng
 ~~~
