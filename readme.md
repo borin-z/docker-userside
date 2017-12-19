@@ -1,6 +1,6 @@
 ###### Usage:
 ~~~bash
-git clone git@github.com:borin-z/docker-userside.git /opt/userside
+git clone https://github.com/borin-z/docker-userside.git /opt/userside
 cd /opt/userside
 docker-compose up -d --build
 ~~~
